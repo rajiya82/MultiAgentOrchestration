@@ -1,0 +1,9 @@
+Bootstrapping and Deploying Live to Your Cloud Environment
+==========================================================
+The Bootstrap Script: This sets up a secure, management state storage tier inside your AWS account to keep tracking metrics logs for resource changes.
+
+cdk bootstrap aws://YOUR_AWS_ACCOUNT_ID/us-east-1
+
+The Deploy Trigger: This compiles your Python objects into an explicit CloudFormation deployment engine file and safely injects your live pipeline assets into your cloud instance.
+
+cdk deploy

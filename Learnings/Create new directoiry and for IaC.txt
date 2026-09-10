@@ -1,0 +1,13 @@
+bash# 1. Install the global AWS CDK execution cli utility via Node Package Manager
+npm install -g aws-cdk
+
+# 2. Initialize a separate standalone IaC stack module
+mkdir InfraManager
+cd InfraManager
+cdk init app --language python
+
+# 3. Activate the freshly generated infrastructure virtual environment
+.venv\Scripts\activate
+
+# 4. Install required modern AWS construct libraries supporting HTTP APIs
+pip install aws-cdk-lib requests
