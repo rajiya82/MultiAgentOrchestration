@@ -53,6 +53,7 @@ if user_query:
 
             try:
                 response = requests.post(api_url, json=payload, headers=headers, timeout=30)
+                agent_output = "Not Assigned Anything"
 
                 if response.status_code == 200:
                     # Parse out the JSON payload return string safely
@@ -69,7 +70,20 @@ if user_query:
 
                     # 🎯 FIX 3: Multi-Agent Logic Branching Distribution Tree
                     if "GENERAL_INFO" in detected_intent:
-                        agent_output = "🌐 **Routed to Knowledge Agent:** Commencing public internet query checks via LangChain Wikipedia..."
+
+                        wiki_url = "https://rfqefkbrqa.execute-api.us-east-1.amazonaws.com/wiki-agent"
+                        wiki_response = requests.post(wiki_url, json = payload, headers=headers, timeout=30)
+
+                        if wiki_response.status_code == 200:
+                            agent_answer = wiki_response.json()
+
+                            if isinstance(agent_answer, dict):
+                                agent_output = agent_answer.get("response", "No information found.")
+                            elif isinstance(agent_answer, str):
+                                agent_output = agent_answer
+
+                        # agent_output = "Test"
+
                     elif "FINANCIAL_INFO" in detected_intent:
                         agent_output = "📈 **Routed to Finance Agent:** Connecting to deployed AWS Lambda microservice endpoint..."
                     elif "APPOINTMENT_BOOKING" in detected_intent:
